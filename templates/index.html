@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Product Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body{
+            background-color: #e9e9e9; /* Light gray background color */
+            color: #333;
+        }
+        /* Add some basic CSS styling */
+        .product-card {
+            display: flex;
+            border: 1px solid #c5e2fe;
+            width: 90vw;
+  margin: 1vw auto;
+        }
+        .product-image {
+            flex: 1;
+            padding: 20px;
+            justify-content: center;
+  display: flex;
+        }
+        .product-details {
+            flex: 3;
+            padding: 20px;
+            display: grid;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        ul {
+            text-decoration: none;
+        }
+        span {
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #searchForm {
+            display: flex;
+            align-items: center;
+            padding-left: inherit;
+        }
+    
+        /* Style for the search input */
+        #searchInput {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 5px;
+            font-size: 16px;
+            flex: 1; /* Fill remaining space */
+            width: 30vw;
+        }
+    
+        /* Style for the search button */
+        #searchForm button {
+            padding: 8px 12px;
+            background-color: #007bff; /* Blue color, you can change it */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    
+        /* Hover effect for the search button */
+        #searchForm button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+        /* Define hover effect for the image */
+        .nav-item span img {
+            transition: transform 0.3s ease; /* Add transition effect for smooth transformation */
+        }
+    
+        /* Define hover effect for the image */
+        .nav-item span img:hover {
+            transform: scale(1.2); /* Increase the size of the image on hover */
+        }
+        .navbar-expand-lg .navbar-nav {
+            padding-right: inherit;}
+            .navbar-expand-lg .navbar-nav {
+                padding:0vh 11vh;
+              }
+              .nav-item{
+                padding: 0 5px;
+              }
+              .product-card {
+                background-color: #dfefff;
+                border: 1px solid #a9d4ff;
+                margin-bottom: 20px;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                padding: 0px 20px;
+            }
+            
+            .product-card:hover {
+                
+                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.35);
+              .product-image img{
+                    height: 290px;
+                }
+            }
+            
+            .product-image img {
+                
+                border-radius: 10px;
+            }
+            
+            .product-details {
+                padding: 20px;
+                background-color: #dfefff;
+            }
+            
+            .product-details h2 {
+                margin-top: 0;
+                margin-bottom: 10px;
+                color: #333;
+            }
+            
+            .product-details p {
+                margin-bottom: 5px;
+            }
+            
+            .product-details a {
+                color: #007bff;
+                text-decoration: none;
+            }
+            
+            .product-details a:hover {
+                text-decoration: underline;
+            }
+            .navbar{
+                position: sticky;
+    top: 0; /* Stick to the top */
+    z-index: 1000; /* Ensure it stays above other content */
+    background-color: #d2e8fe; /* Ensure the background is visible */
+    border-bottom: 1px solid #ddd; /* Optional: Add a border for separation */
+    padding: 10px 20px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.35);
+    margin-bottom: 30px;
+            }
+            
+            
+              .pnamelogo{
+                display: flex;
+                align-items: center;
+              }
+              .pnamelogo img{
+                height: 30px;
+                padding-left: 20px;
+              }
+              .sites li{
+                display: flex;
+                padding: 5px 0px;
+              }
+              .sites img{
+                padding-right: 15px;
+              }
+    </style>
+</head>
+<body>
+  <!-- ggg   -->
+<nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid">
+        <img style="height: 55px;" src="../static/logofinal.png" alt="">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+        <li class="nav-item">
+            <span onclick="refreshData()" onclick="showAllProducts()" style="text-decoration: none;"><img width="25" src="../static/rename.svg" alt=""></span>
+        </li>
+    </ul>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <button type="submit">Search</button>
+        </form>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                
+                
+                <li class="nav-item dropdown" style="padding-right: 55px;">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Price
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" onclick="sortByPrice('low')">low to high</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="sortByPrice('high')">high to low</a></li>
+                        
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sites
+                    </a>
+                    <ul class="dropdown-menu sites">
+                        <li><a class="dropdown-item" href="#" onclick="sortBySite('Amazon')"><img src="https://cdn1.smartprix.com/rx-iR2NxBi82-w32-h32/amazon.webp" alt="">Amazon</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="sortBySite('Chroma')"><img src="https://cdn1.smartprix.com/rx-i4vfi1umq-w32-h32/croma.webp" alt="">Chroma</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="sortBySite('Flipkart')"><img src="https://cdn1.smartprix.com/rx-i1jV84HS1-w32-h32/flipkart.webp" alt="">Flipkart</a></li>
+                        
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="product-list">
+    <!-- Product cards will be inserted here -->
+</div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+    
+        // Get the search query
+        const searchQuery = document.getElementById('searchInput').value.trim();
+    
+        // Call a function to handle the search functionality
+        searchProducts(searchQuery);
+    });
+    function showAllProducts() {
+        document.getElementById('searchInput').value = ''; // Clear the search input
+        fetchData(); // Fetch all products again
+    }
+    function searchProducts(searchQuery) {
+        fetch('/search', {
+            method: 'POST',
+            body: new URLSearchParams({ searchQuery })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the filtered data (update UI, etc.)
+            renderProducts(data); // Call a function to render the filtered products
+        })
+        .catch(error => {
+            console.error('Error searching products:', error);
+        });
+    }
+
+    function renderProducts(data) {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; // Clear existing content
+        
+        // Render filtered products
+        data.forEach(product => {
+            const productCard = `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${product['Image Links']}" alt="Product Image">
+                    </div>
+                    <div class="product-details">
+                        <div class="pnamelogo">
+                        <h2>${product['Product Name']}</h2>
+                        <img src="${product['Logo']}" alt="Product Image">
+                        </div>
+                        
+                        <p><strong>Price:</strong> ${product['Price']}</p>
+                        <p><strong>Description:</strong> ${product['Description']}</p>
+                        
+                        <p><strong>Product Link:</strong> <a href="${product['Details']}" target="_blank">More Details</a></p>
+                       
+                    </div>
+                </div>
+            `;
+            productList.insertAdjacentHTML('beforeend', productCard);
+        });
+    }
+
+    // Function to refresh data
+    function refreshData() {
+        fetch('/refresh_data')
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    // If data refresh is successful, fetch and update the UI with latest data
+                    fetchData();
+                } else {
+                    console.error('Failed to refresh data:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error refreshing data:', error);
+            });
+    }
+
+    // Function to fetch data and update UI
+    // Function to fetch data and update UI
+    function fetchData() {
+        fetch('/latest_data')
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                
+                // Clear existing content
+                productList.innerHTML = '';
+    
+                // Render all products
+                data.forEach(product => {
+                    const productCard = `
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="${product['Image Links']}" alt="Product Image">
+                            </div>
+                            <div class="product-details">
+                                <div class="pnamelogo">
+                        <h2>${product['Product Name']}</h2>
+                        <img src="${product['Logo']}" alt="Product Image">
+                        </div>
+                                
+                                <p><strong>Price:</strong> ${product['Price']}</p>
+                                <p><strong>Description:</strong> ${product['Description']}</p>
+                                
+                                <p><strong>Product Link:</strong> <a href="${product['Details']}" target="_blank">More Details</a></p>
+                                
+                            </div>
+                        </div>
+                    `;
+                    productList.insertAdjacentHTML('beforeend', productCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+
+
+
+
+    // Function to sort products by price
+    function sortByPrice(order) {
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = ''; // Clear existing content
+        fetch(`/sort_by_price?order=${order}`)
+            .then(response => response.json())
+            .then(data => {
+                // Update UI with sorted data
+                const productList = document.getElementById('product-list');
+                
+                data.forEach(product => {
+                    const productCard = `
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="${product['Image Links']}" alt="Product Image">
+                            </div>
+                            <div class="product-details">
+                                <div class="pnamelogo">
+                        <h2>${product['Product Name']}</h2>
+                        <img src="${product['Logo']}" alt="Product Image">
+                        </div>
+                               
+                                <p><strong>Price:</strong> ${product['Price']}</p>
+                                <p><strong>Description:</strong> ${product['Description']}</p>
+                                
+                                <p><strong>Product Link:</strong> <a href="${product['Details']}" target="_blank">More Details</a></p>
+                               
+                            </div>
+                        </div>
+                    `;
+                    productList.insertAdjacentHTML('beforeend', productCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error sorting products:', error);
+            });
+    }
+    function sortBySite(site) {
+        fetch(`/sort_by_site?site=${site}`)
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = ''; // Clear existing content
+    
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+    
+                data.forEach(product => {
+                    const productCard = `
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="${product['Image Links']}" alt="Product Image">
+                            </div>
+                            <div class="product-details">
+                                <div class="pnamelogo">
+                                    <h2>${product['Product Name']}</h2>
+                                    <img src="${product['Logo']}" alt="Product Logo">
+                                </div>
+                                <p><strong>Price:</strong> ${product['Price']}</p>
+                                <p><strong>Description:</strong> ${product['Description']}</p>
+                                <p><strong>Product Link:</strong> <a href="${product['Details']}" target="_blank">More Details</a></p>
+                            </div>
+                        </div>
+                    `;
+                    productList.insertAdjacentHTML('beforeend', productCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching or parsing products by site:', error);
+            });
+    }
+    
+    
+    
+
+
+     // Call fetchData initially
+ console.log("fetching data")
+ fetchData();
+</script>
+</body>
+</html>
